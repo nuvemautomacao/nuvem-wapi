@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuvem Automação - Whatsapp API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Centraliza todo o conteúdo */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h3 {
+            color: #555;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .logs {
+            list-style: none;
+            padding: 0;
+        }
+
+        .logs li {
+            margin-bottom: 5px;
+        }
+
+        #qrcode {
+            display: none;
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media screen and (max-width: 768px) {
+            #app {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>Whatsapp API</h1>
+    <p>Nuvem - Whatsapp API</p>
+    <img src="" alt="QR Code" id="qrcode">
+    <h3>Logs:</h3>
+    <ul class="logs"></ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        var socket = io();
+
+        socket.on('message', function(msg) {
+            $('.logs').append($('<li>').text(msg));
+        });
+
+        socket.on('qr', function(src) {
+            $('#qrcode').attr('src', src);
+            $('#qrcode').show();
+        });
+
+        socket.on('ready', function(data) {
+            $('#qrcode').hide();
+        });
+
+        socket.on('authenticated', function(data) {
+            $('#qrcode').hide();
+        });
+    });
+</script>
+</body>
+</html>
