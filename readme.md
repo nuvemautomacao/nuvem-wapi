@@ -1,4 +1,4 @@
-# Whatsapp Web API
+# WWeb-API Nuvem
 
 Este é um exemplo de implementação da API do WhatsApp Web usando o [wweb.js](https://github.com/pedroslopez/whatsapp-web.js).
 
